@@ -16,10 +16,15 @@ alleles <- map(fs_alleles,
                    mutate(
                      rep = as.numeric(rep),
                      genome = paste0('genome', match(x, fs_alleles))
-                   ) 
+                   ) %>%
+                   right_join(select(fullgenome, -genome)) %>%
+                   complete(ind_id, pop, rep, output_gen, genome, 
+                            nesting(position), 
+                            fill = list(select_coef = 0)) %>% 
+                   drop_na(ind_id, pop, rep, output_gen, genome)
                }) %>% 
   reduce(bind_rows)
 
+chrome <- alleles %>% filter(ind_id == 0 & pop == 0 & rep == 0 & output_gen == 2500 & genome == 'genome1')
 
-
-r2d3(script = "supplementals/chrome_play.js", data = jsonlite::toJSON(fullgenome))
+r2d3(script = "supplementals/chrome_play.js", data = jsonlite::toJSON(chrome))

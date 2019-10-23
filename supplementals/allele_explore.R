@@ -25,3 +25,5 @@ fullgenome <- read_delim("data/run20191022_174414/m1e-2_mu1e-6_r1e-6_sigsqr5_ful
 alleles %>% group_by(pop, position, output_gen, rep) %>% summarize(sum(select_coef)) %>% filter(position == 4310001)
 
 alleles %>% filter(position == 800001 & pop == 0 & output_gen == 2500 & rep == 0)
+
+
