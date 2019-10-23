@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1571771882916.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "6B32D81D",
+    "lastKnownWriteTime" : 1571852372,
+    "last_content_update" : 1571852372767,
+    "path" : "~/Documents/research/viz_explore/supplementals/allele_explore.R",
+    "project_path" : "supplementals/allele_explore.R",
+    "properties" : {
+        "cursorPosition" : "22,106",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
