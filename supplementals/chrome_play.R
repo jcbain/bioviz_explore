@@ -3,12 +3,16 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(purrr)
+library(glue)
 
-fs_alleles <- list.files(path = 'data/run20191022_174414/', 
-                         pattern = 'm1e-2_mu1e-6_r1e-6_sigsqr5_genome*', 
+directory <- 'data/run20191024_180222/'
+pat <- 'm1e-2_mu1e-6_r1e-6_sigsqr5'
+
+fs_alleles <- list.files(path = directory, 
+                         pattern = glue('{pat}_genome*'), 
                          full.names = T)
 
-fullgenome <- read_delim("data/run20191022_174414/m1e-2_mu1e-6_r1e-6_sigsqr5_fullgenome.txt", delim = ' ')
+fullgenome <- read_delim(glue("{directory}{pat}_fullgenome.txt"), delim = ' ')
 
 alleles <- map(fs_alleles, 
                function(x){
@@ -25,6 +29,6 @@ alleles <- map(fs_alleles,
                }) %>% 
   reduce(bind_rows)
 
-chrome <- alleles %>% filter(ind_id == 0 & pop == 0 & rep == 0 & output_gen == 2500 & genome == 'genome1')
+chrome <- alleles %>% filter(ind_id == 0 & pop == 0 & rep == 0 & output_gen == 2500)
 
 r2d3(script = "supplementals/chrome_play.js", data = jsonlite::toJSON(chrome), viewer = 'browser')
