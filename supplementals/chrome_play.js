@@ -13,6 +13,9 @@ var chromeCount = d3.nest()
 var chromeOneData = data.filter(function(d){return d.genome == "genome1"});
 var chromeTwoData = data.filter(function(d){return d.genome == "genome2"});
 
+var positiveColor = '#ebc634';
+var negativeColor = '#ffb3ed';
+var wildTypeColor = '#f7f7f7';
 
 var minAbsoluteEffect = 0;
 var maxAbsoluteEffect = d3.max(data, function(d){ return Math.abs( d.select_coef );});
@@ -23,7 +26,7 @@ var xPosition = 65;
 
 var chromeHeight = 580;
 var chromeWidth = 50; 
-var chromeStrokeWidth = .5;
+var chromeStrokeWidth = 0.5;
 var chromeRounding = 10;
 var chromeYPosition = 10; 
 var baseStrokeWidth = 0.2;
@@ -45,6 +48,7 @@ var bases = svg.append("g")
            
 var bases = svg.append("g")
            .attr("class", "genome2");
+           
 
 bases.selectAll('genome1')
      .data(chromeOneData)
@@ -56,20 +60,24 @@ bases.selectAll('genome1')
      .attr('y', function(d, i){return yScale(i)})
      .attr('fill', function(d){
              if (d.select_coef < 0){
-                     return 'pink';
+                     return positiveColor;
              } else if (d.select_coef > 0){
-                     return 'yellow';
+                     return negativeColor;
              } else {
-                     return 'white';
+                     return wildTypeColor;
              }
      })
      .attr('stroke', 'black')
      .attr('stroke-opacity', 1)
      .attr('fill-opacity', function(d){
-             return (Math.abs(d.select_coef) - minAbsoluteEffect)/ (maxAbsoluteEffect - minAbsoluteEffect);
+             if (d.select_coef === 0){
+                     return 1;
+             } else {
+                     return (Math.abs(d.select_coef) - minAbsoluteEffect)/ (maxAbsoluteEffect - minAbsoluteEffect);
+             }
      })
      .attr('stroke-width', baseStrokeWidth);
-     
+
 bases.selectAll('genome2')
      .data(chromeTwoData)
      .enter()
@@ -80,17 +88,21 @@ bases.selectAll('genome2')
      .attr('y', function(d, i){return yScale(i)})
      .attr('fill', function(d){
              if (d.select_coef < 0){
-                     return 'pink';
+                     return positiveColor;
              } else if (d.select_coef > 0){
-                     return 'yellow';
+                     return negativeColor;
              } else {
-                     return 'white';
+                     return wildTypeColor;
              }
      })
      .attr('stroke', 'black')
      .attr('stroke-opacity', 1)
      .attr('fill-opacity', function(d){
-             return (Math.abs(d.select_coef) - minAbsoluteEffect)/ (maxAbsoluteEffect - minAbsoluteEffect);
+             if (d.select_coef === 0){
+                     return 1;
+             } else {
+                     return (Math.abs(d.select_coef) - minAbsoluteEffect)/ (maxAbsoluteEffect - minAbsoluteEffect);
+             }
      })
      .attr('stroke-width', baseStrokeWidth);
      
@@ -104,8 +116,9 @@ bases.selectAll('genome2')
        .attr('y', chromeYPosition)
        .attr('rx', chromeRounding)
        .attr('ry', chromeRounding)
-       .attr('fill', 'white')
+       .attr('fill', wildTypeColor)
        .attr('stroke', 'black')
        .attr('stroke-opacity', 1)
-       .attr('fill-opacity', 0.1)
+       .attr('fill-opacity', 1)
        .attr('stroke-width', chromeStrokeWidth);
+       
