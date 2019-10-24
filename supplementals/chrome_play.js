@@ -1,7 +1,7 @@
 //
 // r2d3: https://rstudio.github.io/r2d3
 //
-
+//console = d3.window(svg.node()).console;
 
 // Data
 var chromeCount = d3.nest()
@@ -13,6 +13,10 @@ var chromeCount = d3.nest()
 var chromeOneData = data.filter(function(d){return d.genome == "genome1"});
 var chromeTwoData = data.filter(function(d){return d.genome == "genome2"});
 
+
+var minAbsoluteEffect = 0;
+var maxAbsoluteEffect = d3.max(data, function(d){ return Math.abs( d.select_coef );});
+// console.log(JSON.stringify(maxAbsoluteEffect));
 
 var genomeLength = chromeOneData.length;
 var xPosition = 65;
@@ -61,7 +65,9 @@ bases.selectAll('genome1')
      })
      .attr('stroke', 'black')
      .attr('stroke-opacity', 1)
-     .attr('fill-opacity', 0.9)
+     .attr('fill-opacity', function(d){
+             return (Math.abs(d.select_coef) - minAbsoluteEffect)/ (maxAbsoluteEffect - minAbsoluteEffect);
+     })
      .attr('stroke-width', baseStrokeWidth);
      
 bases.selectAll('genome2')
@@ -83,7 +89,9 @@ bases.selectAll('genome2')
      })
      .attr('stroke', 'black')
      .attr('stroke-opacity', 1)
-     .attr('fill-opacity', 0.9)
+     .attr('fill-opacity', function(d){
+             return (Math.abs(d.select_coef) - minAbsoluteEffect)/ (maxAbsoluteEffect - minAbsoluteEffect);
+     })
      .attr('stroke-width', baseStrokeWidth);
      
   chromes.selectAll('chromes')

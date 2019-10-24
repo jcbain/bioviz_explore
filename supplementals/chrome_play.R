@@ -29,6 +29,6 @@ alleles <- map(fs_alleles,
                }) %>% 
   reduce(bind_rows)
 
-chrome <- alleles %>% filter(ind_id == 0 & pop == 0 & rep == 0 & output_gen == 2500)
+chrome <- alleles %>% filter(ind_id == 0 & pop == 0 & rep == 0 & output_gen == 50000)
 
 r2d3(script = "supplementals/chrome_play.js", data = jsonlite::toJSON(chrome), viewer = 'browser')
