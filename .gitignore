@@ -36,4 +36,4 @@ vignettes/*.pdf
 *.knit.md
 
 # Data files
-data/*
+**/data/**
