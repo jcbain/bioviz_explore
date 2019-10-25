@@ -13,9 +13,12 @@ var chromeCount = d3.nest()
 var chromeOneData = data.filter(function(d){return d.genome == "genome1"});
 var chromeTwoData = data.filter(function(d){return d.genome == "genome2"});
 
-var positiveColor = '#ebc634';
-var negativeColor = '#ffb3ed';
-var wildTypeColor = '#f7f7f7';
+// colors
+var positiveColor     = '#ebc634';
+var negativeColor     = '#ffb3ed';
+var wildTypeColor     = '#f7f7f7';
+var baseStrokeColor   = '#ffffff';
+var chromeStrokeColor = '#000000';
 
 var minAbsoluteEffect = 0;
 var maxAbsoluteEffect = d3.max(data, function(d){ return Math.abs( d.select_coef );});
@@ -67,7 +70,7 @@ bases.selectAll('genome1')
                      return wildTypeColor;
              }
      })
-     .attr('stroke', 'black')
+     .attr('stroke', baseStrokeColor)
      .attr('stroke-opacity', 1)
      .attr('fill-opacity', function(d){
              if (d.select_coef === 0){
@@ -95,7 +98,7 @@ bases.selectAll('genome2')
                      return wildTypeColor;
              }
      })
-     .attr('stroke', 'black')
+     .attr('stroke', baseStrokeColor)
      .attr('stroke-opacity', 1)
      .attr('fill-opacity', function(d){
              if (d.select_coef === 0){
@@ -117,7 +120,7 @@ bases.selectAll('genome2')
        .attr('rx', chromeRounding)
        .attr('ry', chromeRounding)
        .attr('fill', wildTypeColor)
-       .attr('stroke', 'black')
+       .attr('stroke', chromeStrokeColor)
        .attr('stroke-opacity', 1)
        .attr('fill-opacity', 1)
        .attr('stroke-width', chromeStrokeWidth);
