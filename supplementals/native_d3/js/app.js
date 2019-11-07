@@ -1,3 +1,4 @@
+// remember to uncomment this script in index.html
 
 d3.json('data/sample_genome.json').then(function(dataset){
  let data = dataset.filter(function(d){return d.pop == 0 && d.ind_id == 0 && d.output_gen == 50000});
