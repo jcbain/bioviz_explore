@@ -1,64 +1,64 @@
 
 d3.json('data/sample_genome.json').then(function(dataset){
- var data = dataset.filter(function(d){return d.pop == 0 && d.ind_id == 0 && d.output_gen == 50000});
+ let data = dataset.filter(function(d){return d.pop == 0 && d.ind_id == 0 && d.output_gen == 50000});
 
-var chromeCount = d3.nest()
+let chromeCount = d3.nest()
     .key(function(d) { return d.genome; })
     .rollup(function (v) { return v.length; })
     .entries(data);
 
 // chart parameters
-var chartWidth = 1000;
-var chartHeight = 800;
-var padding = 50;
+let chartWidth = 1000;
+let chartHeight = 800;
+let padding = 50;
 
 // svg
-var svg = d3.select('#chart')
+let svg = d3.select('#chart')
     .append('svg')
     .attr('width', chartWidth)
     .attr('height', chartHeight);
 
 // console.log(JSON.stringify(data));
-var chromeOneData = data.filter(function(d){return d.genome == "genome1"});
-var chromeTwoData = data.filter(function(d){return d.genome == "genome2"});
+let chromeOneData = data.filter(function(d){return d.genome == "genome1"});
+let chromeTwoData = data.filter(function(d){return d.genome == "genome2"});
 
 // colors
-var positiveColor     = '#ebc634';
-var negativeColor     = '#ffb3ed';
-var wildTypeColor     = '#f7f7f7';
-var baseStrokeColor   = '#ffffff';
-var chromeStrokeColor = '#000000';
+let positiveColor     = '#ebc634'; // yellow alt(#ebc634)
+let negativeColor     = '#fdadb6'; // pink
+let wildTypeColor     = '#f7f7f7';
+let baseStrokeColor   = '#ffffff';
+let chromeStrokeColor = '#000000';
 
-var minAbsoluteEffect = 0;
-var maxAbsoluteEffect = d3.max(data, function(d){ return Math.abs( d.select_coef );});
+let minAbsoluteEffect = 0;
+let maxAbsoluteEffect = d3.max(data, function(d){ return Math.abs( d.select_coef );});
 // console.log(JSON.stringify(maxAbsoluteEffect));
 
-var genomeLength = chromeOneData.length;
-var xPosition = 65;
+let genomeLength = chromeOneData.length;
+let xPosition = 65;
 
-var chromeHeight = 580;
-var chromeWidth = 50; 
-var chromeStrokeWidth = 0.5;
-var chromeRounding = 20;
-var chromeYPosition = 10; 
-var baseStrokeWidth = 0.2;
-var baseHeight = (chromeHeight / genomeLength) - baseStrokeWidth;
-var baseWidth = chromeWidth - baseStrokeWidth - chromeStrokeWidth;
+let chromeHeight = 580;
+let chromeWidth = 50; 
+let chromeStrokeWidth = 0.5;
+let chromeRounding = 20;
+let chromeYPosition = 10; 
+let baseStrokeWidth = 0.2;
+let baseHeight = (chromeHeight / genomeLength) - baseStrokeWidth;
+let baseWidth = chromeWidth - baseStrokeWidth - chromeStrokeWidth;
 
 console.log(baseHeight);
-var yScale = d3.scaleLinear()
+let yScale = d3.scaleLinear()
     .domain([genomeLength, 0])
     .range([chromeHeight - chromeRounding - (baseStrokeWidth/2), 
             chromeYPosition + chromeRounding + (baseStrokeWidth/2)]);
 
 // svg elements
-var chromes = svg.append("g")
+let chromes = svg.append("g")
     .attr("class", "chromes");
 
-var bases = svg.append("g")
+let bases = svg.append("g")
     .attr("class", "genome1");
 
-var bases = svg.append("g")
+bases = svg.append("g")
     .attr("class", "genome2");
 
 
