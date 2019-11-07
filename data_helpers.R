@@ -13,6 +13,11 @@ fs_alleles <- list.files(path = directory,
 
 fullgenome <- read_delim(glue("{directory}{pat}_fullgenome.txt"), delim = ' ')
 
+if("genome" %in% names(fullgenome)){
+  fullgenome <- fullgenome %>%
+    rename(genome_scaffold = genome)
+}
+
 alleles <- map(fs_alleles, 
                function(x){
                  read_delim(x, delim = ' ') %>% 
