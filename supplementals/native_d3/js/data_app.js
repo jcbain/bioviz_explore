@@ -24,7 +24,7 @@ Promise.all([
         var result = genomeg.filter(function(g){
             return g.position === position.position;
         });
-        position.select_coef = (result[0] !== undefined) ? result[0].select_coef : null;
+        position.select_coef = (result[0] !== undefined) ? result[0].select_coef : 0;
     })
     console.log(genomet);
 })
