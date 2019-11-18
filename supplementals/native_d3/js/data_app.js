@@ -18,7 +18,17 @@ Promise.all([
     
     indivFullGenome = {};
     for(let genome of genomeLabels.unique()){
-        indivFullGenome[genome] = ;
+        let genomeSegment = indivGenome.filter(d => d.genome === genome);
+        let newGenome = [];
+        templateGenome.forEach(function(position){
+            let result = genomeSegment.filter(function(mutation){
+                return mutation.position === position.position;
+            });
+            // console.log(result);
+            position.select_coef = (result[0] !== undefined) ? result[0].select_coef : 0;
+            newGenome.push(position);
+        });
+        indivFullGenome[genome] = newGenome;
     }
     console.log(indivFullGenome);
 
