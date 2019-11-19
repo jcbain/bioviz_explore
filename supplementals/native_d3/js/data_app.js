@@ -11,7 +11,6 @@ Promise.all([
     let indivGenome = files[0],
         templateGenome = files[1];
     
-
     const genomeLabels = [];
     indivGenome.forEach(g => genomeLabels.push(g.genome));
     console.log(genomeLabels.unique());
@@ -20,13 +19,13 @@ Promise.all([
     for(let genome of genomeLabels.unique()){
         let genomeSegment = indivGenome.filter(d => d.genome === genome);
         let newGenome = [];
-        templateGenome.forEach(function(position){
+        templateGenome.forEach(function(templatePosition){
             let result = genomeSegment.filter(function(mutation){
-                return mutation.position === position.position;
+                return mutation.position === templatePosition.position;
             });
             // console.log(result);
-            position.select_coef = (result[0] !== undefined) ? result[0].select_coef : 0;
-            newGenome.push(position);
+            templatePosition.select_coef = (result[0] !== undefined) ? result[0].select_coef : 0;
+            newGenome.push(templatePosition);
         });
         indivFullGenome[genome] = newGenome;
     }
@@ -36,8 +35,22 @@ Promise.all([
     console.log(templateGenome);
 });
 
+function loadData(files){
+    console.log(files);
+    return files;
+}
+
+console.log(Promise.all([
+    d3.json('data/genome_individual.json'),
+    d3.json('data/genome_template.json')
+]).then(loadData).then(function(files){
+    let indivGenome = files[0],
+        templateGenome = files[1]
+    console.log(indivGenome);
+}
 
 
+))
 
 // Promise.all([
 //     d3.json('data/genome_individual.json'),
