@@ -3,7 +3,8 @@ library(dplyr)
 library(purrr)
 library(ggplot2)
 
-fs_alleles <- list.files(path = 'data/run20191022_174414', 
+# read in selected files
+fs_alleles <- list.files(path = 'data/run20191203_180926', 
                          pattern = '*[^full]genome*', 
                          full.names = T)
 
@@ -45,14 +46,14 @@ mutation <- read_delim("data/run20191022_174414/m1e-2_mu1e-6_r1e-6_sigsqr5_mutat
 fullgenome <- read_delim("data/run20191022_174414/m1e-2_mu1e-6_r1e-6_sigsqr5_fullgenome.txt", delim = ' ')
 
 # pick the rep
-rep_selection <- 1
+rep_selection <- 0
 
 alleles <- alleles %>% filter(rep == rep_selection)
 phenotype <- phenotype %>% filter(rep == rep_selection)
 mutation <- mutation %>% filter(rep == rep_selection)
 
 # Test it out to see if allele mutation matches mutation
-allele_mutation <- alleles %>% group_by(output_gen, position, pop, m, mu, r, sigsqr) %>% mutate(freq = n()/2000)
+allele_mutation <- alleles %>% group_by(output_gen, position, pop, m, mu, r, sigsqr) %>% summarize(freq = n()/2000)
 
 
 
