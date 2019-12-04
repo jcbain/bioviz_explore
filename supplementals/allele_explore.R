@@ -12,6 +12,17 @@ fs_alleles <- list.files(path = 'data/run20191203_180926',
 odd <- function(x) x%%2 != 0
 even <- function(x) x%%2 == 0
 
+#' create function create new columns from param values
+#' 
+#' From a vector of namees, map values to a data frame from a same length
+#' vector of values.
+#' 
+#' @param data The dataset to have the columns added to.
+#' @param names Vector of column names.
+#' @param vals Vector of values to occupy the new columns. Must be of same
+#'   length as `names`.
+#' 
+#' @return Data frame with new columns.
 multi_mutate <- function(data, names, vals){
   purrr::map(1:length(names), function(x){
     dplyr::transmute(data, !!names[x] := vals[x])
