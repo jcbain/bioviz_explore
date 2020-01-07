@@ -1,6 +1,7 @@
 library(readr)
 library(dplyr)
 library(purrr)
+library(stringr)
 library(ggplot2)
 
 # read in selected files
