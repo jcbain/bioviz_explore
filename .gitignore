@@ -37,3 +37,5 @@ vignettes/*.pdf
 
 # Data files
 **/data/**
+
+**.DS_Store
